@@ -855,6 +855,13 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
             if ref_model is not None:
                 ref_model_path = ref_model.get("path", self.config.model.path)
 
+            self_distillation_cfg = self.config.actor.get("self_distillation", None) if self._is_actor else None
+            loss_mode = self.config.actor.policy_loss.get("loss_mode", "vanilla") if self._is_actor else "vanilla"
+            if self_distillation_cfg is not None and loss_mode == "sdpo":
+                teacher_path = self_distillation_cfg.get("teacher_path", None)
+                if teacher_path:
+                    ref_model_path = teacher_path
+
             if self.rank == 0:
                 print("reference model:", ref_model_path)
             local_path = copy_to_local(ref_model_path, use_shm=use_shm)
@@ -902,6 +909,23 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
                             mix_coef=self_distillation_cfg.get("teacher_update_rate", 0.0),
                         )
                     else:
+                        teacher_init_alpha = float(self_distillation_cfg.get("teacher_init_alpha", 1.0))
+                        if teacher_init_alpha < 1.0:
+                            with torch.no_grad():
+                                for (t_pname, teacher_param), (s_pname, student_param) in zip(
+                                    self.ref_module_fsdp.named_parameters(),
+                                    self.actor_module_fsdp.named_parameters(),
+                                    strict=True,
+                                ):
+                                    assert t_pname == s_pname, f"Name mismatch: teacher={t_pname}, student={s_pname}"
+                                    student_data = student_param.data.to(
+                                        device=teacher_param.device,
+                                        dtype=teacher_param.dtype,
+                                    )
+                                    teacher_param.data.mul_(teacher_init_alpha).add_(
+                                        student_data,
+                                        alpha=(1.0 - teacher_init_alpha),
+                                    )
                         self.actor.teacher_module = self.ref_module_fsdp
 
         if self._is_actor:

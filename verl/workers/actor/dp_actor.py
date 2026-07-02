@@ -763,8 +763,21 @@ class DataParallelPPOActor(BasePPOActor):
 
                     calculate_entropy = self.config.calculate_entropy or (entropy_coeff != 0)
                     self_distillation_mask = model_inputs.get("self_distillation_mask") if self_distillation_enabled else None
+                    distillation_token_mask = self_distillation_mask
                     if self_distillation_enabled:
                         assert not has_multi_modal_inputs, "Multi-modal inputs are not supported for distillation"
+                        mask_ratio = float(self_distillation_cfg.get("mask_ratio", 0.0))
+                        if mask_ratio > 0.0:
+                            random_keep_mask = (
+                                torch.rand(response_mask.shape, device=response_mask.device, dtype=torch.float32)
+                                >= mask_ratio
+                            ).to(dtype=response_mask.dtype)
+                            if self_distillation_mask is not None:
+                                distillation_token_mask = random_keep_mask * self_distillation_mask.unsqueeze(1)
+                            else:
+                                distillation_token_mask = random_keep_mask
+                        elif self_distillation_mask is not None:
+                            distillation_token_mask = self_distillation_mask.unsqueeze(1)
 
                     if self.config.use_dynamic_bsz:
                         loss_scale_factor = response_mask.shape[0] / self.config.ppo_mini_batch_size
@@ -840,12 +853,16 @@ class DataParallelPPOActor(BasePPOActor):
                             teacher_all_log_probs=teacher_all_logps,
                             student_topk_log_probs=student_topk_logps,
                             teacher_topk_log_probs=teacher_topk_logps,
-                            self_distillation_mask=self_distillation_mask,
+                            self_distillation_mask=distillation_token_mask,
                             loss_agg_mode=loss_agg_mode,
                             rollout_is_weights=rollout_is_weights,
                         )
 
-                        pg_metrics["self_distillation/empty_target_batch"] = self_distillation_mask.sum().item() == 0
+                        effective_target_tokens = response_mask if distillation_token_mask is None else response_mask * distillation_token_mask
+                        pg_metrics["self_distillation/empty_target_batch"] = effective_target_tokens.sum().item() == 0
+                        pg_metrics["self_distillation/distilled_token_fraction"] = (
+                            effective_target_tokens.sum().item() / response_mask.sum().clamp(min=1).item()
+                        )
                         micro_batch_metrics.update(pg_metrics)
                     else:
                         # gpg -> verl.trainer.ppo.core_algos.compute_policy_loss_gpg

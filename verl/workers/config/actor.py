@@ -46,6 +46,10 @@ class SelfDistillationConfig(BaseConfig):
         success_reward_threshold (float): Minimum sequence reward to be considered successful.
         teacher_regularization (str): Teacher regularization mode. Options: "ema", "trust-region".
         teacher_update_rate (float): EMA update rate for teacher weights, or trust-region mixing coefficient.
+        teacher_path (Optional[str]): Optional checkpoint path used to initialize the teacher.
+        teacher_init_alpha (float): Teacher init mixing coefficient in
+            teacher <- (1 - alpha) * student + alpha * teacher_checkpoint.
+        mask_ratio (float): Ratio of response tokens to skip in self-distillation, in [0, 1].
         distillation_topk (Optional[int]): If set, use top-k logits for distillation.
         distillation_add_tail (bool): Whether to add a tail bucket for top-k distillation.
         max_reprompt_len (int): Maximum length of the reprompted prompt.
@@ -67,6 +71,9 @@ class SelfDistillationConfig(BaseConfig):
     success_reward_threshold: float = 1.0
     teacher_regularization: str = "ema"
     teacher_update_rate: float = 0.05
+    teacher_path: Optional[str] = None
+    teacher_init_alpha: float = 1.0
+    mask_ratio: float = 0.0
     distillation_topk: Optional[int] = None
     distillation_add_tail: bool = True
     max_reprompt_len: int = 10240
@@ -104,6 +111,12 @@ class SelfDistillationConfig(BaseConfig):
             raise ValueError(
                 f"self_distillation.teacher_update_rate must be in [0,1], got {self.teacher_update_rate}"
             )
+        if not 0.0 <= self.teacher_init_alpha <= 1.0:
+            raise ValueError(
+                f"self_distillation.teacher_init_alpha must be in [0,1], got {self.teacher_init_alpha}"
+            )
+        if not 0.0 <= self.mask_ratio <= 1.0:
+            raise ValueError(f"self_distillation.mask_ratio must be in [0,1], got {self.mask_ratio}")
         if self.distillation_topk is not None and self.distillation_topk <= 0:
             raise ValueError(
                 f"self_distillation.distillation_topk must be a positive integer, got {self.distillation_topk}"

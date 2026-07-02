@@ -1101,7 +1101,14 @@ def compute_self_distillation_loss(
 
     loss_mask = response_mask
     if self_distillation_mask is not None:
-        loss_mask = loss_mask * self_distillation_mask.unsqueeze(1)
+        if self_distillation_mask.ndim == 1:
+            loss_mask = loss_mask * self_distillation_mask.unsqueeze(1)
+        elif self_distillation_mask.ndim == 2:
+            loss_mask = loss_mask * self_distillation_mask
+        else:
+            raise ValueError(
+                "self_distillation_mask must be rank-1 (batch) or rank-2 (batch, response_length)."
+            )
 
     if self_distillation_config.full_logit_distillation:
         use_topk = self_distillation_config.distillation_topk is not None
