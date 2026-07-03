@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+message: If you use this software, please cite both the article from preferred-citation and the software itself.
+authors:
+  - family-names: Wang
+    given-names: Meng
+  - family-names: Zhao
+    given-names: Haohan
+  - family-names: Liu
+    given-names: Wenzhuo
+  - family-names: Yang
+    given-names: Lu
+  - family-names: Liu
+    given-names: Geng
+  - family-names: Guo
+    given-names: Haiyang
+  - family-names: Xie
+    given-names: Guo-Sen
+  - family-names: Meng
+    given-names: Gaofeng
+  - family-names: Liu
+    given-names: Hongbin
+  - family-names: Zhu
+    given-names: Fei
+title: 'Denser $\neq$ Better: Limits of On-Policy Self-Distillation for Continual Post-Training'
+version: 1.0.0
+doi: 10.48550/arXiv.2607.01763
+url: https://arxiv.org/abs/2607.01763
+date-released: '2026-07-03'
+preferred-citation:
+  authors:
+    - family-names: Wang
+      given-names: Meng
+    - family-names: Zhao
+      given-names: Haohan
+    - family-names: Liu
+      given-names: Wenzhuo
+    - family-names: Yang
+      given-names: Lu
+    - family-names: Liu
+      given-names: Geng
+    - family-names: Guo
+      given-names: Haiyang
+    - family-names: Xie
+      given-names: Guo-Sen
+    - family-names: Meng
+      given-names: Gaofeng
+    - family-names: Liu
+      given-names: Hongbin
+    - family-names: Zhu
+      given-names: Fei
+  title: 'Denser $\neq$ Better: Limits of On-Policy Self-Distillation for Continual Post-Training'
+  doi: 10.48550/arXiv.2607.01763
+  url: https://arxiv.org/abs/2607.01763
+  type: generic
+  year: '2026'
+  conference: {}
+  publisher:
+    name: arXiv
