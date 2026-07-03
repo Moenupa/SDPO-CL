@@ -1,3 +1,9 @@
+---
+layout: page
+title: Get Started
+permalink: /usage/
+---
+
 <div align="center">
 
 # Reinforcement Learning via Self-Distillation (SDPO)

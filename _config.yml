@@ -1,0 +1,9 @@
+title: Denser ≠ Better
+description: On-policy self-distillation still suffers forgetting.
+theme: minima
+header_pages:
+  - docs/SDPO.md
+  - docs/DATA.md
+  - docs/ACKNOWLEDGMENTS.md
+plugins:
+  - jekyll-redirect-from
