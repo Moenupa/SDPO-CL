@@ -1,6 +1,7 @@
 title: Denser ≠ Better
 description: On-policy self-distillation still suffers forgetting.
 theme: minima
+github_username: Moenupa
 header_pages:
   - docs/SDPO.md
   - docs/DATA.md

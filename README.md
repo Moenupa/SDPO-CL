@@ -14,7 +14,7 @@
 </div>
 <br/>
 
-> TL;DR: **Dense token-level supervision accelerates specialization, but can hurt continual learning.**
+**TL;DR**: Dense token-level supervision accelerates specialization, but brings more severe forgetting, hurting continual learning.
 
 Recent work suggests that **reinforcement learning** naturally mitigates catastrophic forgetting during continual post-training[^Path][^SDPO][^RFT]. We revisit this claim through two on-policy methods: token-level supervision **Self-Distillation Policy Optimization (SDPO)**[^SDPO] versus sequence-level rewards **Group Relative Policy Optimization (GRPO)**[^GRPO].
 
@@ -22,7 +22,7 @@ Our findings show that:
 
 - 🚀 **SDPO** rapidly specializes to the current domain.
 - 🎓 Self-distillation is highly sensitive to teacher **stability** and **quality**.
-- ⚠️ Dense token-level supervision increases parameter drift, response drift, and forgetting.
+- ⚠️ Dense token-level supervision increases model drift and forgetting.
 - 📉 In continual post-training, SDPO can become unstable or even collapse.
 - ✅ **GRPO** learns more conservatively while preserving prior capabilities significantly better.
 

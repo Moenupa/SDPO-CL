@@ -27,11 +27,17 @@ permalink: /data/
 [^rein2023gpqa]: https://huggingface.co/datasets/Idavidrein/gpqa
 
 <figure>
-  <img src="assets/mmd_rbf.jpg" alt="Embedding MMD Heatmap" />
-  <figcaption>MMD heatmap between dataset embeddings.</figcaption>
+  <picture>
+    <source srcset="../docs/assets/mmd_rbf.jpg" />
+    <img src="assets/mmd_rbf.jpg" alt="Embedding MMD Heatmap" />
+  </picture>
+  <figcaption>Maximum Mean Discrepancy (MMD) heatmap between embeddings of two datasets.</figcaption>
 </figure>
 
 <figure>
-  <img src="assets/tsne.jpg" alt="Embedding t-SNE Map" />
+  <picture>
+    <source srcset="../docs/assets/tsne.jpg" />
+    <img src="assets/tsne.jpg" alt="Embedding t-SNE Map" />
+  </picture>
   <figcaption>t-SNE map of dataset embeddings.</figcaption>
 </figure>

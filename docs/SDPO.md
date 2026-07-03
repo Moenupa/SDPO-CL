@@ -4,17 +4,11 @@ title: Get Started
 permalink: /usage/
 ---
 
-<div align="center">
-
-# Reinforcement Learning via Self-Distillation (SDPO)
-
-[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2601.20802)  [![Github](https://img.shields.io/badge/Code-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/lasgroup/SDPO) [![W&B Logs](https://img.shields.io/badge/WandB%20Logs-%2300B4AB?style=for-the-badge&logo=weightsandbiases&logoColor=white&labelColor=000000)](https://wandb.ai/jonhue/SDPO?nw=mgotcx6kk7)
-
-</div>
-
 > Below documentation is a copy from [SDPO Official README](https://github.com/lasgroup/SDPO/blob/main/README.md). Please refer to the original README for the most up-to-date version.
 
-## 🚀 Getting Started
+## Reinforcement Learning via Self-Distillation (SDPO)
+
+[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2601.20802)  [![Github](https://img.shields.io/badge/Code-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/lasgroup/SDPO) [![W&B Logs](https://img.shields.io/badge/WandB%20Logs-%2300B4AB?style=for-the-badge&logo=weightsandbiases&logoColor=white&labelColor=000000)](https://wandb.ai/jonhue/SDPO?nw=mgotcx6kk7)
 
 ### System Requirements
 *   **Operating System:** Linux (Tested on SLES 15 SP5 and Ubuntu 22.04)
@@ -270,21 +264,3 @@ Located at `actor.self_distillation` in the config. Only active when `actor.poli
 - **include_environment_feedback** (bool, default: `True`): Whether to include environment feedback (e.g., test errors) in reprompting.
 
 - **environment_feedback_only_without_solution** (bool, default: `True`): If `True`, only use feedback when no successful solution is available.
-
----
-
-## Citation
-If you find this work helpful, please cite us.
-
-```bibtex
-@article{hubotter2026reinforcement,
-  title = {Reinforcement Learning via Self-Distillation},
-  author = {Hübotter, Jonas and Lübeck, Frederike and Behric, Lejs and Baumann, Anton and Bagatella, Marco and Marta, Daniel and Hakimi, Ido and Shenfeld, Idan and Kleine Buening, Thomas and Guestrin, Carlos and Krause, Andreas},
-  year = {2026},
-  journal = {arXiv preprint arXiv:2601.20802},
-}
-```
-
-## Attribution
-
-Our implementation is based on a recent version of [verl](https://github.com/verl-project/verl).
