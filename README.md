@@ -1,5 +1,11 @@
 # Denser ≠ Better: Limits of On-Policy Self-Distillation for Continual Post-Training
 
+*Meng Wang<sup>1</sup>, Haohan Zhao<sup>1</sup>, Wenzhuo Liu<sup>1</sup>, Lu Yang<sup>1</sup>, Geng Liu<sup>1</sup>, Haiyang Guo<sup>2,3</sup>, Guo-Sen Xie<sup>4</sup>, Gaofeng Meng<sup>1,2,3</sup>, Hongbin Liu<sup>1,2,3</sup>, Fei Zhu<sup>1</sup>*  
+<sup>1</sup>Centre for Artificial Intelligence and Robotics, HKISI, CAS
+<sup>2</sup>Institute of Automation, CAS
+<sup>3</sup>University of Chinese Academy of Sciences
+<sup>4</sup>Nanjing University of Science and Technology
+
 <div align="center">
   <a href="https://arxiv.org/abs/2607.01763">
     <img src="https://img.shields.io/badge/2607.01763-B31B1B?logo=arxiv" alt="Arxiv: 2607.01763" /></a>
